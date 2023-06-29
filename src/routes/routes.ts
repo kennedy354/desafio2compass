@@ -1,7 +1,7 @@
 import express, {Express, Request, Response} from 'express'
-import { atualizarPet, atualizarTutor, criarPet, deletarPet, deletarTutor, mostrarTutors} from '../controller/controller'
+import { atualizarPet, atualizarTutor, criarPet, deletarPet, deletarTutor} from '../controller/controller'
 
-import { criarTutor } from '../service/tutorService'
+import { criarTutor, mostrarTutors } from '../service/tutorService'
 
 const router = express.Router()
 router.use(express.json())
@@ -16,11 +16,7 @@ router.get('/', (req: Request, res: Response) => {
 router.get('/tutors', mostrarTutors, (req: Request, res: Response) => {})
 
 //Criar novo Tutor
-//router.post('/tutor', criarTutor, (req: Request, res: Response) => {})
-router.post('/tutor', criarTutor, (req: Request, res: Response) => {
-
-    
-})
+router.post('/tutor', criarTutor, (req: Request, res: Response) => {})
 
 //Atualizar Tutor
 router.put('/tutor/:id', (req: Request, res: Response) => {

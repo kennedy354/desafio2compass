@@ -41,11 +41,6 @@ const tutors =
     }
 ]
 
-export const mostrarTutors = (req: Request, res: Response) => {
-    return res.json(tutors)
-}
-
-
 export function atualizarTutor(id:any, req: Request, res: Response){
     const tutorUpdate = req.body
     const tutorCheck = tutors.find((tutorCheck) => tutorCheck.id === parseInt(id))

@@ -63,16 +63,25 @@ export async function atualizarTutor(req: Request, res: Response){
     }
 }
 
-export async function deletarTutor(req: Request, res: Response){
-    
-    const id = req.params.id
-    
+export async function deletarTutor(req: Request, res: Response) {
+    const id = req.params.id;
+  
     try {
-        await Tutor.deleteOne({_id: id})
-
-        res.status(200).json({ message: 'Tutor deletado' })
-
+      const tutor = await Tutor.findById(id);
+      if (!tutor) {
+        res.status(404).json({ message: 'Tutor não encontrado' });
+        return;
+      }
+  
+      if (tutor.pets.length > 0) {
+        res.status(400).json({ message: 'O tutor só pode ser deletado quando não tiver nenhum pet' });
+        return;
+      }
+  
+      await Tutor.deleteOne({ _id: id });
+  
+      res.status(200).json({ message: 'Tutor deletado' });
     } catch (error) {
-        res.status(500).json({ message: 'Erro ao deletar tutor' })
+      res.status(500).json({ message: 'Erro ao deletar tutor' });
     }
-}
+  }

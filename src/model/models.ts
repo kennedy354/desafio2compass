@@ -1,6 +1,7 @@
 import mongoose,{Schema, Document} from 'mongoose'
 
 interface Pet {
+  id:any,
   name: string
   species: string
   category: string

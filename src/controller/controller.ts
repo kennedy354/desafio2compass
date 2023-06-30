@@ -41,20 +41,6 @@ const tutors =
     }
 ]
 
-export function atualizarPet(petid:any, tutorid:any, req: Request, res: Response){
-    const petUpdate = req.body
-    const tutorCheck = tutors.find((tutorCheck:any) => tutorCheck.id === parseInt(tutorid))
-    if (!tutorCheck){
-        return res.status(404).json({error:"O Tutor com esse id não foi encontrado"})
-    }
-    const petCheck = tutorCheck.pets.find((petCheck:any) => petCheck.id === parseInt(petid))
-    if (!petCheck) {
-        return res.status(404).json({error:"O Pet com esse id não foi encontrado"})
-    }
-    Object.assign(petCheck, petUpdate)
-    return res.json(petCheck)
-}
-
 export function deletarPet(petid:any, tutorid:any, req: Request, res: Response){
 
     for(let i=0; i<tutors.length; i++){

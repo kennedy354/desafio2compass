@@ -41,16 +41,6 @@ const tutors =
     }
 ]
 
-export function atualizarTutor(id:any, req: Request, res: Response){
-    const tutorUpdate = req.body
-    const tutorCheck = tutors.find((tutorCheck) => tutorCheck.id === parseInt(id))
-    if (!tutorCheck){
-        return res.status(404).json({error:"O Tutor com esse id não foi encontrado"})
-    }
-    Object.assign(tutorCheck, tutorUpdate)
-    return res.json(tutorCheck)
-}
-
 export function deletarTutor(id:any, req: Request, res: Response){
     
     for(let i=0; i<tutors.length; i++){

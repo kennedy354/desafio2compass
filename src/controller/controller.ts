@@ -41,17 +41,6 @@ const tutors =
     }
 ]
 
-export function deletarTutor(id:any, req: Request, res: Response){
-    
-    for(let i=0; i<tutors.length; i++){
-        if(tutors[i].id == id){
-            tutors.splice(i, 1)
-            return res.json({message: "O Tutor foi deletado"})
-        }
-    }
-    return res.json({message: "O Tutor com esse id não foi encontrado"})
-}
-
 export function criarPet(tutorid:any, req: Request, res: Response){
     try {
         const newPet = req.body

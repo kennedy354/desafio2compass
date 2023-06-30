@@ -1,5 +1,5 @@
 import express, {Express, Request, Response} from 'express'
-import Tutor from '../model/tutors'
+import Tutor from '../model/models'
 
 export async function criarTutor (req: Request, res: Response) {
     

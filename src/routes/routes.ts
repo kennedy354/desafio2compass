@@ -1,15 +1,13 @@
 import express, {Express, Request, Response} from 'express'
-import { atualizarPet, criarPet, deletarPet} from '../controller/controller'
+import { atualizarPet, deletarPet} from '../controller/controller'
 
 import { atualizarTutor, criarTutor, deletarTutor, mostrarTutors } from '../service/tutorService'
+import { criarPet } from '../service/petService'
 
 const router = express.Router()
 router.use(express.json())
 
-router.get('/', (req: Request, res: Response) => {
-    res.send('VetClinic')
-    res.json({message:'teste express'})
-})
+router.get('/', (req: Request, res: Response) => {res.send('VetClinic'); res.json({message:'teste express'})})
 
 router.post('/tutor', criarTutor, (req: Request, res: Response) => {})
 
@@ -19,11 +17,7 @@ router.put('/tutor/:id', atualizarTutor, (req: Request, res: Response) => {})
 
 router.delete('/tutor/:id', deletarTutor, (req: Request, res: Response) => {})
 
-//Criar novo Pet para um Tutor
-router.post('/pet/:tutorid', (req: Request, res: Response) => {
-    const {tutorid}:any = req.params
-    criarPet(tutorid, req, res)
-})
+router.post('/pet/:tutorid', criarPet, (req: Request, res: Response) => {})
  
 //Atualizar Pet
 router.put('/pet/:petid/tutor/:tutorid', (req: Request, res: Response) => {

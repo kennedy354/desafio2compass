@@ -41,35 +41,6 @@ const tutors =
     }
 ]
 
-export function criarPet(tutorid:any, req: Request, res: Response){
-    try {
-        const newPet = req.body
-        const camposObrigatorios = [
-            "name",
-            "species",
-            "carry",
-            "weight",
-            "date_of_birth",
-          ];
-          for (const field of camposObrigatorios) {
-            if (!newPet[field]) {
-              return res
-                .status(400)
-                .json({ error: `Campo ausente: ${field}`});
-            }
-          }
-          for(let i=0; i<tutors.length; i++){
-            if(tutors[i].id == tutorid){
-                tutors[i].pets.push(newPet)
-                return res.json(tutors[i])
-            }
-        }
-        return res.json({message: "O Tutor com esse id não foi encontrado"})
-    } catch (error) {
-        return res.json(error)
-    }
-}
-
 export function atualizarPet(petid:any, tutorid:any, req: Request, res: Response){
     const petUpdate = req.body
     const tutorCheck = tutors.find((tutorCheck:any) => tutorCheck.id === parseInt(tutorid))

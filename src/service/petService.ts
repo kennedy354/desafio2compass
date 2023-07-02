@@ -101,7 +101,7 @@ export async function deletarPet(req: Request, res: Response) {
   
       await tutor.save()
   
-      res.status(200).json({ message: 'Pet deletado' })
+      res.status(204).json({ message: 'Pet deletado' })
     } catch (error) {
       res.status(500).json({ error: error })
     }

@@ -11,6 +11,7 @@ interface Pet {
 
 interface sTutor extends Document{
   name: string
+  password: string
   phone: string
   email: string
   date_of_birth: Date
@@ -20,6 +21,7 @@ interface sTutor extends Document{
 
 const TutorSchema = new Schema<sTutor>({
   name: { type: String, required: true },
+  password: { type: String, required: true },
   phone: { type: String, required: true },
   email: { type: String, required: true },
   date_of_birth: { type: Date, required: true },

@@ -1,0 +1,423 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Desafio 2",
+      "version": "1.0.0",
+      "description": "API para gerenciamento de tutors e pets"
+    },
+    "paths": {
+      "/auth": {
+        "post": {
+          "summary": "Autenticação do tutor",
+          "requestBody": {
+            "description": "Credenciais do tutor",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TutorCredentials"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Autenticação bem-sucedida",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AuthResponse"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Credenciais inválidas"
+            },
+            "500": {
+              "description": "Erro interno do servidor"
+            }
+          }
+        }
+      },
+      "/tutor": {
+        "post": {
+          "summary": "Cria um novo tutor",
+          "requestBody": {
+            "description": "Dados do novo tutor",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tutor"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Tutor criado"
+            },
+            "400": {
+              "description": "Erro de validação"
+            },
+            "500": {
+              "description": "Erro interno do servidor"
+            }
+          }
+        },
+        "get": {
+          "summary": "Lista todos os tutores",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Lista de tutores",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Tutor"
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Acesso não autorizado"
+            },
+            "500": {
+              "description": "Erro interno do servidor"
+            }
+          }
+        }
+      },
+      "/tutor/{id}": {
+        "put": {
+          "summary": "Atualiza informações de um tutor",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "description": "Novos dados do tutor",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tutor"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Tutor atualizado"
+            },
+            "400": {
+              "description": "Erro de validação"
+            },
+            "404": {
+              "description": "Tutor não encontrado"
+            },
+            "500": {
+              "description": "Erro interno do servidor"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Exclui um tutor",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Tutor removido com sucesso"
+            },
+            "404": {
+              "description": "Tutor não encontrado"
+            },
+            "500": {
+              "description": "Erro interno do servidor"
+            }
+          }
+        }
+      },
+      "/pet/{tutorId}": {
+        "post": {
+          "summary": "Cria um novo pet",
+          "parameters": [
+            {
+              "name": "tutorId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "description": "Dados do novo pet",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Pet criado"
+            },
+            "400": {
+              "description": "Erro de validação"
+            },
+            "401": {
+              "description": "Acesso não autorizado"
+            },
+            "404": {
+              "description": "Tutor não encontrado"
+            },
+            "500": {
+              "description": "Erro interno do servidor"
+            }
+          }
+        }
+      },
+      "/pet/{petId}/tutor/{tutorId}": {
+        "put": {
+          "summary": "Atualiza informações de um pet",
+          "parameters": [
+            {
+              "name": "petId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "tutorId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "description": "Novos dados do pet",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Pet atualizado"
+            },
+            "400": {
+              "description": "Erro de validação"
+            },
+            "401": {
+              "description": "Acesso não autorizado"
+            },
+            "404": {
+              "description": "Pet não encontrado"
+            },
+            "500": {
+              "description": "Erro interno do servidor"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Exclui um pet",
+          "parameters": [
+            {
+              "name": "petId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "tutorId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Pet removido com sucesso"
+            },
+            "401": {
+              "description": "Acesso não autorizado"
+            },
+            "404": {
+              "description": "Pet não encontrado"
+            },
+            "500": {
+              "description": "Erro interno do servidor"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "TutorCredentials": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string",
+              "format": "email"
+            },
+            "password": {
+              "type": "string",
+              "format": "password"
+            }
+          },
+          "required": [
+            "email",
+            "password"
+          ]
+        },
+        "AuthResponse": {
+          "type": "object",
+          "properties": {
+            "token": {
+              "type": "string"
+            }
+          }
+        },
+        "Tutor": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string",
+              "format": "password"
+            },
+            "phone": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string",
+              "format": "email"
+            },
+            "date_of_birth": {
+              "type": "string",
+              "format": "date"
+            },
+            "zip_code": {
+              "type": "string"
+            },
+            "pets": {
+              "type": "array",
+              "default": []
+            }
+          },
+          "required": [
+            "name",
+            "password",
+            "phone",
+            "email",
+            "date_of_birth",
+            "zip_code",
+            "pets"
+            
+          ]
+        },
+        "Pet": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "species": {
+              "type": "string"
+            },
+            "category": {
+              "type": "string"
+            },
+            "weight": {
+              "type": "number",
+              "format": "float"
+            },
+            "date_of_birth": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          "required": [
+            "name",
+            "species",
+            "category",
+            "weight",
+            "date_of_birth"
+          ]
+        }
+      },
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      }
+    }
+  }

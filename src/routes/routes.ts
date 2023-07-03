@@ -7,11 +7,9 @@ import autenticar from '../middleware/auth'
 const router = express.Router()
 router.use(express.json())
 
-router.get('/', (req: Request, res: Response) => {res.send('VetClinic'); res.json({message:'teste express'})})
-
 router.post('/tutor', criarTutor, (req: Request, res: Response) => {})
 
-router.route('/tutors').get(autenticar, mostrarTutors)
+router.route('/tutor').get(autenticar, mostrarTutors)
 
 router.route('/tutor/:id').put(autenticar, atualizarTutor)
 

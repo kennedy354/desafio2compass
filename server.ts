@@ -15,7 +15,7 @@ app.use(router)
 
 //senha mongo 123
 mongoose
-.connect('mongodb+srv://kennedy:123@cluster0.vantho4.mongodb.net/')
+.connect('mongodb+srv://<Usuario>:<Senha>@cluster0.vantho4.mongodb.net/')
 .then(()=> {
     app.listen(port, () => {
         console.log(`O servidor está no link http://localhost:${port}`)

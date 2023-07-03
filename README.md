@@ -24,7 +24,7 @@ No VsCode abra a paleta de comandos com "CTRL + SHIFT + P"
 
 Escolha o comando "MongoDB: Connect" e connecte o banco
 
-No server.ts na linha 18 mude "<Usuario>" e "<Senha>" para o usuario e senha do seu banco
+No server.ts na linha 18 mude "Usuario" e "Senha" para o usuario e senha do seu banco
 
 ### Rodar o Projeto
 Use o comando abaixo

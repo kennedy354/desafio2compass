@@ -1,6 +1,8 @@
 import express, {Express, Request, Response} from 'express'
 import { atualizarTutor, criarTutor, deletarTutor, mostrarTutors } from '../service/tutorService'
 import { atualizarPet, criarPet, deletarPet } from '../service/petService'
+import { login } from '../service/login'
+import autenticar from '../middleware/auth'
 
 const router = express.Router()
 router.use(express.json())
@@ -9,16 +11,18 @@ router.get('/', (req: Request, res: Response) => {res.send('VetClinic'); res.jso
 
 router.post('/tutor', criarTutor, (req: Request, res: Response) => {})
 
-router.get('/tutors', mostrarTutors, (req: Request, res: Response) => {})
+router.route('/tutors').get(autenticar, mostrarTutors)
 
-router.put('/tutor/:id', atualizarTutor, (req: Request, res: Response) => {})
+router.route('/tutor/:id').put(autenticar, atualizarTutor)
 
-router.delete('/tutor/:id', deletarTutor, (req: Request, res: Response) => {})
+router.route('/tutor/:id').delete(autenticar, deletarTutor)
 
-router.post('/pet/:tutorid', criarPet, (req: Request, res: Response) => {})
+router.route('/pet/:tutorid').post(autenticar, criarPet)
 
-router.put('/pet/:petid/tutor/:tutorid', atualizarPet, (req: Request, res: Response) => {})
+router.route('/pet/:petid/tutor/:tutorid').put(autenticar, atualizarPet)
 
-router.delete('/pet/:petid/tutor/:tutorid', deletarPet, (req: Request, res: Response) => {})
+router.route('/pet/:petid/tutor/:tutorid').delete(autenticar, deletarPet)
+
+router.post('/auth', login, (req: Request, res: Response) => {})
 
 export default router

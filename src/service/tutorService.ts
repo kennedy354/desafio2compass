@@ -36,7 +36,6 @@ export async function mostrarTutors(req: Request, res: Response){
 
     try {
         const tutors = await Tutor.find().select("-password")
-
         res.status(200).json(tutors)
     } catch (error) {
         res.status(500).json({error: error})
@@ -45,24 +44,30 @@ export async function mostrarTutors(req: Request, res: Response){
 
 export async function atualizarTutor(req: Request, res: Response){
     const id = req.params.id
+    //console.log(req.user) //usar variaves do middleware
 
-    const {name, phone, email, date_of_birth, zip_code, pets} = req.body
+    const {name, phone, email, date_of_birth, zip_code} = req.body
 
     const tutor = {
         name,
         phone,
         email,
         date_of_birth,
-        zip_code,
-        pets
+        zip_code
     }
 
-    if(!name || !phone || !email || !date_of_birth || !zip_code || !pets){
+    if(!name || !phone || !email || !date_of_birth || !zip_code){
         res.status(400).json({error: 'Campos obrigatórios faltando'})
         return
     }
 
     try {
+        const tutorTeste = await Tutor.findById(id)
+        if (!tutorTeste) {
+            res.status(404).json({ message: 'Tutor não encontrado' })
+            return
+        }
+
         await Tutor.updateOne({_id: id}, tutor)
         res.status(200).json(tutor)
     } catch (error) {
@@ -74,21 +79,20 @@ export async function deletarTutor(req: Request, res: Response) {
     const id = req.params.id
   
     try {
-      const tutor = await Tutor.findById(id)
-      if (!tutor) {
-        res.status(404).json({ message: 'Tutor não encontrado' })
-        return
-      }
+        const tutor = await Tutor.findById(id)
+        if (!tutor) {
+            res.status(404).json({ message: 'Tutor não encontrado' })
+            return
+        }
   
-      if (tutor.pets.length > 0) {
-        res.status(400).json({ message: 'O tutor só pode ser deletado quando não tiver nenhum pet' })
-        return
-      }
+        if (tutor.pets.length > 0) {
+            res.status(400).json({ message: 'O tutor só pode ser deletado quando não tiver nenhum pet' })
+            return
+        }
   
-      await Tutor.deleteOne({ _id: id })
-  
-      res.status(204).json({ message: 'Tutor deletado' })
+        await Tutor.deleteOne({ _id: id })
+        res.status(204).json({ message: 'Tutor deletado' })
     } catch (error) {
-      res.status(500).json({ message: 'Erro ao deletar tutor' })
+        res.status(500).json({ message: 'Erro ao deletar tutor' })
     }
   }

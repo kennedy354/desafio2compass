@@ -62,16 +62,11 @@ export async function atualizarTutor(req: Request, res: Response){
     }
 
     try {
-        const tutorTeste = await Tutor.findById(id)
-        if (!tutorTeste) {
-            res.status(404).json({ message: 'Tutor não encontrado' })
-            return
-        }
-
         await Tutor.updateOne({_id: id}, tutor)
         res.status(200).json(tutor)
     } catch (error) {
-        res.status(500).json({error: error})
+        res.status(404).json({ message: 'Tutor não encontrado' })
+        return
     }
 }
 

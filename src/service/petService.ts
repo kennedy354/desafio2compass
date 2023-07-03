@@ -23,17 +23,12 @@ export async function criarPet(req: Request, res: Response){
 
     try {
         const tutor = await Tutor.findById(id)
-        if (!tutor) {
-            res.status(404).json({ error: 'Tutor não encontrado' })
-            return
-        }
-
-        tutor.pets.push(pet)
-        await tutor.save()
-
+        tutor?.pets.push(pet)
+        await tutor?.save()
         res.status(201).json({ message: 'Pet criado' })
+
     } catch (error) {
-        res.status(500).json({ error: error })
+      res.status(404).json({ message: 'Tutor não encontrado' })
     }
 }
 
@@ -51,12 +46,8 @@ export async function atualizarPet(req: Request, res: Response){
 
     try {
         const tutor = await Tutor.findById(idT)
-        if (!tutor) {
-          res.status(404).json({ error: 'Tutor não encontrado' })
-          return
-        }
-    
-        const pet = tutor.pets.find((petAtt) => petAtt.id === idP)
+        const pet = tutor?.pets.find((petAtt) => petAtt.id === idP)
+
         if (!pet) {
           res.status(404).json({ error: 'Pet não encontrado' })
           return
@@ -68,13 +59,12 @@ export async function atualizarPet(req: Request, res: Response){
         pet.weight = weight
         pet.date_of_birth = date_of_birth
 
-        tutor.markModified('pets')
-    
-        await tutor.save()
+        tutor?.markModified('pets')
+        await tutor?.save()
     
         res.status(200).json({ message: 'Pet atualizado' })
       } catch (error) {
-        res.status(500).json({ error: error })
+        res.status(404).json({ message: 'Tutor não encontrado' })
       }
 }
 
@@ -103,6 +93,6 @@ export async function deletarPet(req: Request, res: Response) {
   
       res.status(204).json({ message: 'Pet deletado' })
     } catch (error) {
-      res.status(500).json({ error: error })
+      res.status(404).json({ error: 'Tutor não encontrado' })
     }
 }

@@ -1,8 +1,6 @@
+# Desafio 2
 
-# Desafio 1
-
-Rotas de GET, POST, PUT e DELETE sem banco de dados
-
+Rotas de GET, POST, PUT e DELETE com banco de dados MongoDB
 
 ## Instalação
 
@@ -11,14 +9,24 @@ Na pasta raiz do projeto entre no CMD e digite o seguinte comando
 ```bash
   npm install
 ```
+
 Depois que as dependencias forem instaladas digite
 
 ```bash
   tsc
 ```
+
+Instale a extensão "MongoDB for VS Code" no VsCode
     
 ## Como Usar
+### Conectar Banco de Dados
+No VsCode abra a paleta de comandos com "CTRL + SHIFT + P"
 
+Escolha o comando "MongoDB: Connect" e connecte o banco
+
+No server.ts na linha 18 mude <Usuario> e <Senha> para o usuario e senha do seu banco
+
+### Rodar o Projeto
 Use o comando abaixo
 
 ```bash

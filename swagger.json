@@ -346,25 +346,30 @@
           "type": "object",
           "properties": {
             "name": {
-              "type": "string"
+              "type": "string",
+              "default": "James"
             },
             "password": {
               "type": "string",
-              "format": "password"
+              "format": "password",
+              "default": "1234"
             },
             "phone": {
-              "type": "string"
+              "type": "string",
+              "default": "3541-8922"
             },
             "email": {
               "type": "string",
-              "format": "email"
+              "format": "email",
+              "default": "james@compasso.com"
             },
             "date_of_birth": {
               "type": "string",
               "format": "date"
             },
             "zip_code": {
-              "type": "string"
+              "type": "string",
+              "default": "75640000"
             },
             "pets": {
               "type": "array",
@@ -386,17 +391,21 @@
           "type": "object",
           "properties": {
             "name": {
-              "type": "string"
+              "type": "string",
+              "default": "Passarinho"
             },
             "species": {
-              "type": "string"
+              "type": "string",
+              "default": "bird"
             },
             "category": {
-              "type": "string"
+              "type": "string",
+              "default": "p"
             },
             "weight": {
               "type": "number",
-              "format": "float"
+              "format": "float",
+              "default": 2
             },
             "date_of_birth": {
               "type": "string",

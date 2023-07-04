@@ -23,6 +23,7 @@ mongoose
 .then(()=> {
     app.listen(port, () => {
         console.log(`O servidor está no link http://localhost:${port}`)
+        console.log(`O sawgger está no link http://localhost:${port}/api-docs`)
     })
 })
 .catch((err)=> console.log(err))
